@@ -42,12 +42,26 @@ public class ProfileRepository : BaseRepo
   FROM vault v
   JOIN accounts a ON a.id = v.creatorId
   WHERE v.creatorId = @creatorId
+  AND v.isPrivate = false
   ;";
     return _db.Query<MyVault, Profile, MyVault>(sql, (mv, p) =>
     {
       mv.Creator = p;
       return mv;
     }, new { creatorId }).ToList();
+  }
+
+
+
+  internal MyVault GetMyVaultById(MyVault newVault)
+  {
+    string sql = @"
+SELECT 
+*
+FROM VaultKeeps
+WHERE vaultId = @vaultId AND creatorId = @creatorId
+;";
+    return _db.Query<MyVault>(sql, newVault).FirstOrDefault();
   }
 
 }

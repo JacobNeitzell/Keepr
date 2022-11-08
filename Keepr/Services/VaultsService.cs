@@ -31,19 +31,23 @@ public class VaultsService
 
 
 
-  internal Vault UpdateVault(Vault vaultData, string accountId)
+  internal Vault UpdateVault(Vault vaultData, string userId)
   {
-    if (vaultData.CreatorId != accountId)
+    Vault original = GetVaultById(vaultData.Id, vaultData.CreatorId);
+    if (vaultData.CreatorId != original.CreatorId)
     {
       throw new Exception("Unauthorized to edit this recipe");
     }
-    Vault original = GetVaultById(vaultData.Id, accountId);
+    if (original.CreatorId != userId)
+    {
+      throw new Exception("blah blah whatetever jefe");
+    }
     original.Name = vaultData.Name ?? original.Name;
     original.Description = vaultData.Description ?? original.Description;
     original.Img = vaultData.Img ?? original.Img;
     original.isPrivate = vaultData.isPrivate;
-    Vault vault = _vr.Update(original);
-    return vault;
+    _vr.Update(original);
+    return original;
   }
 
   internal void DeleteVault(int vaultId, string accountId)

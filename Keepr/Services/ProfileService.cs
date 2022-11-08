@@ -4,11 +4,12 @@ namespace Keepr.Services;
 public class ProfileService
 {
   private readonly ProfileRepository _pr;
+  private readonly VaultsService _vs;
 
-  public ProfileService(ProfileRepository pr)
+  public ProfileService(ProfileRepository pr, VaultsService vs)
   {
     _pr = pr;
-
+    _vs = vs;
   }
 
 
@@ -32,7 +33,10 @@ public class ProfileService
   }
 
 
-
+  public MyVault GetMyVaultById(MyVault newVault)
+  {
+    return _pr.GetMyVaultById(newVault);
+  }
 
 
 

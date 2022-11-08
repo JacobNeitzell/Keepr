@@ -35,13 +35,17 @@ public class KeepsService
 
 
 
-  internal Keep UpdateKeep(Keep keepData, string accountId)
+  internal Keep UpdateKeep(Keep keepData, string userId)
   {
-    if (keepData.CreatorId != accountId)
+    Keep original = GetKeepById(keepData.Id);
+    if (keepData.CreatorId != original.CreatorId)
     {
       throw new Exception("Not your keep");
     }
-    Keep original = GetKeepById(keepData.Id);
+    if (original.CreatorId != userId)
+    {
+      throw new Exception("Not today muchacho");
+    }
     original.Name = keepData.Name ?? original.Name;
     original.Img = keepData.Img ?? original.Img;
     original.Description = keepData.Description ?? original.Description;

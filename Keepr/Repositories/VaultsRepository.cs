@@ -55,21 +55,18 @@ public class VaultsRepository : BaseRepo, IRepository<Vault, int>
     }, new { vaultId }).FirstOrDefault();
   }
 
-  public Vault Update(Vault vaultData)
+  public Vault Update(Vault original)
   {
     string sql = @"
-   UPDATE vault SET 
-   name = @name,
-   description = @description,
-   img = @img
-   WHERE id = @Id
-   ;";
-    int vaultRow = _db.Execute(sql, vaultData);
-    if (vaultRow == 0)
-    {
-      throw new Exception("Unable to Update the vault");
-    }
-    return vaultData;
+    UPDATE vault SET 
+    name = @Name,
+    description = @Description,
+    img = @Img,
+    isPrivate = @isPrivate
+    WHERE id = @Id
+    ;";
+    _db.Execute(sql, original);
+    return original;
   }
 
   public List<Vault> Get()

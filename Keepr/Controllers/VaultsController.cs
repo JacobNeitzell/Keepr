@@ -84,7 +84,7 @@ public class VaultsController : ControllerBase
     try
     {
       Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
-      vaultData.Creator = userInfo;
+      // vaultData.Creator = userInfo;
       vaultData.CreatorId = userInfo.Id;
       vaultData.Id = vaultId;
       Vault vault = _vs.UpdateVault(vaultData, userInfo.Id);
