@@ -1,10 +1,11 @@
 <template>
   <div class="Keep-Card">
+    <span data-bs-target="#KeepModal" data-bs-toggle="modal"> </span>
     <div class="card text-dark  " v-if="keep">
-      <img class="card-img forcedImg" :src="keep.img" alt="Card-Image" />
+      <img class="card-img" :src="keep.img" alt="Card-Image" />
       <div class="card-img-overlay">
         <h5 class="card-title">{{ keep.name }}</h5>
-        <p class="card-text">{{ keep.creator.imgUrl }}</p>
+        <p class="card-text"></p>
       </div>
     </div>
   </div>
@@ -16,7 +17,9 @@
 <script>
 
 
+import { AppState } from "../AppState.js";
 import { Keep } from "../models/Keep.js";
+import { keepsService } from "../services/KeepsService.js";
 
 export default {
   props: {
@@ -24,10 +27,20 @@ export default {
       type: Keep, required: true
     },
   },
-  setup() {
+  setup(props) {
     return {
 
+
+      setActiveKeep() {
+        keepsService.setActiveKeep(props.keep)
+      }
+
+
+
+
+
     }
+
   }
 }
 </script>

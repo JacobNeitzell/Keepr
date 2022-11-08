@@ -37,12 +37,18 @@ export default {
 
 <style scoped lang="scss">
 .masonry-with-columns {
-  columns: 4 50px;
-  column-gap: 1rem;
+  columns: 4 165.50px;
+
 
   div {
+    width: 150px;
+    margin: 0 1rem 1rem 0;
     display: inline-block;
     width: 100%;
+    text-align: center;
+    font-family: system-ui;
+    font-weight: 900;
+    font-size: 2rem;
   }
 
   @for $i from 1 through 36 {
