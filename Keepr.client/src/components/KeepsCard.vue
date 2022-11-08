@@ -34,12 +34,6 @@ export default {
 
 
 <style lang="scss" scoped>
-.forcedImg {
-  height: 300px;
-  width: auto;
-  object-fit: cover;
-}
-
 .card:hover {
   filter: brightness(90%);
   transition: all 0.5s ease;

@@ -37,7 +37,7 @@ export default {
 
 <style scoped lang="scss">
 .masonry-with-columns {
-  columns: 4 200px;
+  columns: 4 50px;
   column-gap: 1rem;
 
   div {

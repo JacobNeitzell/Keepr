@@ -5,12 +5,15 @@ public class VaultsKeepService
   private readonly VaultsKeepRepository _vkr;
   private readonly VaultsRepository _vr;
   private readonly KeepsRepository _kr;
+  private readonly VaultsService _vs;
 
-  public VaultsKeepService(VaultsKeepRepository vkr, VaultsRepository vr, KeepsRepository kr)
+
+  public VaultsKeepService(VaultsKeepRepository vkr, VaultsRepository vr, KeepsRepository kr, VaultsService vs)
   {
     _vkr = vkr;
     _vr = vr;
     _kr = kr;
+    _vs = vs;
   }
 
 
@@ -25,9 +28,16 @@ public class VaultsKeepService
   }
 
 
-  internal List<AllVaultKeep> GetKeepsByVault(int vaultId)
+  internal List<AllVaultKeep> GetKeepsByVault(int vaultId, string userInfo)
   {
-    return _vkr.GetKeepInVault(vaultId);
+    Vault vault = _vs.GetVaultById(vaultId, userInfo);
+    if (vault.isPrivate == true && vault.CreatorId != userInfo)
+    {
+      throw new Exception("Vault is Private no keeps for you.");
+    }
+
+    List<AllVaultKeep> vaultKeeps = _vkr.GetKeepInVault(vaultId);
+    return vaultKeeps;
   }
 
   internal void RemoveKeep(int vaultkeepId, string userId)
