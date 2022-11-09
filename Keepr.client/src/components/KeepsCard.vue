@@ -1,13 +1,17 @@
 <template>
   <div class="Keep-Card">
-    <span data-bs-target="#KeepModal" data-bs-toggle="modal"> </span>
     <div class="card text-dark  " v-if="keep">
+
       <img class="card-img" :src="keep.img" alt="Card-Image" />
       <div class="card-img-overlay">
         <h5 class="card-title">{{ keep.name }}</h5>
-        <p class="card-text"></p>
+        <span class="cardText p-2 rounded no-select selectable" :title="'Show More Info'" @click="setActiveKeep"
+          data-bs-target="#KeepModal" data-bs-toggle="modal">
+          <p class="card-text"></p>
+        </span>
       </div>
     </div>
+
   </div>
 
 
@@ -29,16 +33,10 @@ export default {
   },
   setup(props) {
     return {
-
-
+      // creator: computed(() => AppState.account.id == props.keep.creator.id),
       setActiveKeep() {
         keepsService.setActiveKeep(props.keep)
       }
-
-
-
-
-
     }
 
   }

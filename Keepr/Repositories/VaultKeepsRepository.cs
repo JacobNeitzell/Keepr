@@ -54,6 +54,7 @@ WHERE id = @vaultkeepId
     string sql = @"
 SELECT
 a.*,
+COUNT(k.id) AS kept,
 k.*,
 vk.id AS vaultKeepId
 FROM vaultkeep vk

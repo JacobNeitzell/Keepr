@@ -2,6 +2,7 @@
   <div class="masonry-with-columns">
     <div v-for="k in keep">
       <KeepsCard :keep="k" :key="k.id" />
+      <KeepModal :keep="activeKeep" />
     </div>
   </div>
 
@@ -27,7 +28,8 @@ export default {
     onMounted(() => { GetKeeps() })
     return {
       keep: computed(() => AppState.keep),
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      activeKeep: computed(() => AppState.activeKeep)
 
 
     }
