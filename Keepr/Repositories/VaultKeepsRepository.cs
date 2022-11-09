@@ -37,9 +37,13 @@ public class VaultsKeepRepository : BaseRepo, IRepository<VaultKeep, int>
   public AllVaultKeep GetByKeepIdInVault(int vaultkeepId)
   {
     string sql = @"
-SELECT *
-FROM vaultkeep
+SELECT 
+*,
+COUNT(vk.id) AS Kept,
+vk.id AS vaultkeepId
+FROM vaultkeep vk
 WHERE id = @vaultkeepId
+GROUP BY vk.id
 ;";
     return _db.QueryFirstOrDefault<AllVaultKeep>(sql, new { vaultkeepId });
   }
@@ -54,12 +58,11 @@ WHERE id = @vaultkeepId
     string sql = @"
 SELECT
 a.*,
-COUNT(k.id) AS kept,
 k.*,
 vk.id AS vaultKeepId
 FROM vaultkeep vk
 JOIN keeps k ON k.id = vk.keepId
-  JOIN accounts a ON a.id = k.creatorId
+JOIN accounts a ON a.id = k.creatorId
 WHERE vk.vaultId = @vaultId
 ;";
     return _db.Query<Profile, AllVaultKeep, AllVaultKeep>(sql, (p, mvk) =>
