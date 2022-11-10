@@ -1,26 +1,40 @@
 <template>
-  <div class="VaultCard">
-    <div class="card text-dark" v-if="vault">
-      <img class="card-img" :src="vault.img" alt="Card-Image" />
-      <div class="card-img-overlay">
-        <h5 class="card-title">{{ vault.name }}</h5>
+  <router-link :to="{ name: 'VaultKeep', params: { vaultId: vault.id } }">
+    <div class="VaultCard" @click="SetActiveVault()">
+      <div class="card text-dark" v-if="vault">
+        <img class="card-img" :src="vault.img" alt="Card-Image" />
+        <div class="card-img-overlay">
+          <h5 class="card-title">{{ vault.name }}</h5>
+        </div>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 
 <script>
 import { Vault } from "../models/Vault.js";
+import { vaultService } from "../services/VaultsService.js";
+import Pop from "../utils/Pop.js";
 
 export default {
   props: {
     vault: { type: Vault, required: true }
   },
+  setup(props) {
+    return {
+      // props.vault.id
+      async SetActiveVault() {
+        try {
+          vaultService.setActiveVault(props.vault.id)
+        } catch (error) {
+          Pop.error(error)
+        }
+      }
 
-  setup() {
-    return {}
-  }
+    };
+  },
+
 }
 </script>
 

@@ -27,23 +27,20 @@
 
 <script>
 import { computed } from "@vue/reactivity";
-import { onMounted, watchEffect } from "vue";
+import { watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import { AppState } from "../AppState.js";
 import KeepsCard from "../components/KeepsCard.vue";
 import VaultCard from "../components/VaultCard.vue";
-import { Account } from "../models/Account";
-import { Keep } from "../models/Keep.js";
-import { api } from "../services/AxiosService.js";
 import { profileService } from "../services/ProfileService.js";
 import { keepsService } from "../services/KeepsService.js";
 import Pop from "../utils/Pop.js";
 import { vaultService } from "../services/VaultsService.js";
+import { onAuthLoaded } from "@bcwdev/auth0provider-client";
 
 export default {
   setup() {
     const route = useRoute();
-
 
 
 
@@ -66,7 +63,6 @@ export default {
       }
     }
 
-
     async function GetVaultsByProfile() {
       try {
         await vaultService.GetVaultsByProfile(route?.params?.profileId);
@@ -82,8 +78,9 @@ export default {
       AppState.ActiveProfile;
       AppState.ProfileKeep;
       AppState.profileVault;
+      AppState.activeVault;
     });
-    onMounted(() => {
+    onAuthLoaded(() => {
       GetProfileById();
       GetKeepsByProfile();
       GetVaultsByProfile();
@@ -92,6 +89,7 @@ export default {
       creator: computed(() => AppState.ActiveProfile),
       keep: computed(() => AppState.ProfileKeep),
       vault: computed(() => AppState.profileVault),
+      activeVault: computed(() => AppState.activeVault)
     };
   },
   components: { VaultCard }

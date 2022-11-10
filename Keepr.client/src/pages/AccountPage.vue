@@ -4,7 +4,7 @@
       <div class="row">
         <h1>Welcome {{ account.name }}</h1>
         <img class="rounded-circle ms-2 mb-1" :src="account.picture" alt="" />
-        <span>{{ myVault.length }}, {{ myKeep.length }}</span>
+        <span>{{ myVault?.length }}, {{ myKeep?.length }}</span>
       </div>
       <div class="row">
         <h5>Vaults</h5>
@@ -14,8 +14,8 @@
       </div>
       <div class="row">
         <h5>Keeps</h5>
-        <div class="col-md-6 keep" v-for="k in myKeep" :key="k.id">
-          <KeepsCard :keep="k" />
+        <div class="col-md-6 keep" v-for="m in myKeep" :key="m.id">
+          <KeepsCard :keep="m" />
         </div>
       </div>
     </div>
@@ -23,22 +23,28 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+
+import { computed, watchEffect } from 'vue'
 import { AppState } from '../AppState'
 import KeepsCard from "../components/KeepsCard.vue";
 import VaultCard from "../components/VaultCard.vue";
 
 
+
+
 export default {
   setup() {
 
-
+    watchEffect(() => {
+      AppState.myKeep;
+      AppState.myVault;
+    })
 
 
     return {
       account: computed(() => AppState.account),
       myVault: computed(() => AppState.myVault),
-      myKeep: computed(() => AppState.ProfileKeep)
+      myKeep: computed(() => AppState.myKeep == AppState.ProfileKeep)
     };
   },
   components: { VaultCard, KeepsCard }
