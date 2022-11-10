@@ -1,31 +1,33 @@
 <template>
   <div class="profile">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12" v-if="keep">
-          <img :src="keep?.creator.imgurl" alt="profile-cover-img">
+    <div>
+      <div>
+        <div v-if="creator">
+          <img :src="creator?.imgurl" alt="profile-cover-img">
         </div>
-        <h3 class="text-secondary mb-md-0">@{{ keep?.creator.name.split("@")[0] }}</h3>
+        <h3 class="text-secondary mb-md-0">{{ creator?.name }}</h3>
       </div>
-      <div class="row">
-        <div class="col-md-3 col-lg-12">
-          <h2>Vaults</h2>
-          <VaultCard />
-        </div>
+    </div>
+    <div class="masonry-with-column">
+      <h2>Vaults</h2>
+      <div class="" v-for="v in vault">
+        <VaultCard :vault="v" />
       </div>
-      <div class="row">
-        <div class="col-md-6 keep" v-for="k in profilekeep">
-          <h2>Keeps</h2>
-          <KeepsCard :profilekeep="k" />
-        </div>
+    </div>
+    <div class="masonry-with-columns">
+      <h2>Keeps</h2>
+      <div v-for="k in keep">
+        <KeepsCard :keep="k" />
       </div>
     </div>
   </div>
+
+
 </template>
 
 <script>
 import { computed } from "@vue/reactivity";
-import { onMounted } from "vue";
+import { onMounted, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import { AppState } from "../AppState.js";
 import KeepsCard from "../components/KeepsCard.vue";
@@ -36,38 +38,81 @@ import { api } from "../services/AxiosService.js";
 import { profileService } from "../services/ProfileService.js";
 import { keepsService } from "../services/KeepsService.js";
 import Pop from "../utils/Pop.js";
+import { vaultService } from "../services/VaultsService.js";
 
 export default {
-
   setup() {
     const route = useRoute();
 
 
 
+
     async function GetProfileById() {
       try {
-        await profileService.GetProfilebyId(route.params.profileId)
-      } catch (error) {
-        Pop.error(error["getting profiles"])
+        await profileService.GetProfileId(route?.params?.profileId);
       }
-    }
-    async function GetKeepsByProfile() {
-      try {
-        await keepsService.GetKeepsByProfile(route.params.profileId)
-      } catch (error) {
-        Pop.error(error["getting keeps in profile"])
+      catch (error) {
+        Pop.error(error["getting profiles"]);
       }
     }
 
+
+    async function GetKeepsByProfile() {
+      try {
+        await keepsService.GetKeepsByProfile(route?.params?.profileId);
+      }
+      catch (error) {
+        Pop.error(error["getting keeps in profile"]);
+      }
+    }
+
+
+    async function GetVaultsByProfile() {
+      try {
+        await vaultService.GetVaultsByProfile(route?.params?.profileId);
+      }
+      catch (error) {
+        Pop.error(error["getting vaults in profile"]);
+      }
+    }
+
+
+
+    watchEffect(() => {
+      AppState.ActiveProfile;
+      AppState.ProfileKeep;
+      AppState.profileVault;
+    });
     onMounted(() => {
       GetProfileById();
       GetKeepsByProfile();
-    })
+      GetVaultsByProfile();
+    });
     return {
-      creator: computed(() => AppState.account.id == AppState.keep.id),
-      keep: computed(() => AppState.keep.id),
-      profilekeep: computed(() => AppState.ProfileKeep == AppState.keep.id)
+      creator: computed(() => AppState.ActiveProfile),
+      keep: computed(() => AppState.ProfileKeep),
+      vault: computed(() => AppState.profileVault),
     };
   },
+  components: { VaultCard }
 }
 </script>
+<style scoped lang="scss">
+.masonry-with-columns {
+  columns: 4;
+
+
+}
+
+.masonry-with-column {
+  columns: 3;
+
+
+}
+
+.forcedImg {
+  height: 400px;
+  width: auto;
+  object-fit: cover;
+}
+</style>

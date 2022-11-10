@@ -8,14 +8,23 @@
   <ModalComponent id="keeps-modal">
     <KeepsDetails />
   </ModalComponent>
+  <ModalComponent id="keepForm-modal">
+    <KeepForm />
+  </ModalComponent>
+  <ModalComponent id="vaultform-modal">
+    <VaultForm />
+  </ModalComponent>
+
 </template>
 
 <script>
 import { computed } from 'vue'
 import { AppState } from './AppState'
+import KeepForm from "./components/KeepForm.vue"
 import KeepsDetails from "./components/KeepsDetails.vue"
 import ModalComponent from "./components/ModalComponent.vue"
 import Navbar from './components/Navbar.vue'
+import VaultForm from "./components/VaultForm.vue"
 
 export default {
   setup() {
@@ -23,7 +32,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar, ModalComponent, KeepsDetails }
+  components: { Navbar, ModalComponent, KeepsDetails, KeepForm, VaultForm }
 }
 </script>
 <style lang="scss">

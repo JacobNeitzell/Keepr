@@ -6,15 +6,15 @@ import { api } from "./AxiosService.js"
 
 class ProfileService {
 
-  async GetDProfileId(id) {
-    const res = await api.get('api/profile/' + id)
-    AppState.profile = new Profile(res.data)
+  async GetProfileId(id) {
+    const res = await api.get('api/profiles/' + id)
+    AppState.ActiveProfile = new Profile(res.data)
     return res.data
   }
 
   async SetActiveProfile(creatorId) {
     AppState.ActiveProfile = creatorId;
-    const res = await api.get(`profile/${profileId}`)
+    const res = await api.get(`profiles/${profileId}`)
   }
 
 

@@ -4,7 +4,7 @@
       <div class="row">
         <h1>Welcome {{ account.name }}</h1>
         <img class="rounded-circle ms-2 mb-1" :src="account.picture" alt="" />
-        <span>Vaults count, Keeps count</span>
+        <span>{{ myVault.length }}, {{ myKeep.length }}</span>
       </div>
       <div class="row">
         <h5>Vaults</h5>
@@ -13,8 +13,8 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6 keep" v-for="k in myKeep">
-          <h5>Keeps</h5>
+        <h5>Keeps</h5>
+        <div class="col-md-6 keep" v-for="k in myKeep" :key="k.id">
           <KeepsCard :keep="k" />
         </div>
       </div>
@@ -38,7 +38,7 @@ export default {
     return {
       account: computed(() => AppState.account),
       myVault: computed(() => AppState.myVault),
-      myKeep: computed(() => AppState.myKeep)
+      myKeep: computed(() => AppState.ProfileKeep)
     };
   },
   components: { VaultCard, KeepsCard }

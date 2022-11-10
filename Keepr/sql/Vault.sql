@@ -6,7 +6,7 @@ CREATE TABLE
         creatorId VARCHAR(255) NOT NULL,
         name VARCHAR(255) NOT NULL,
         description VARCHAR(255) NOT NULL,
-        Img VARCHAR(300) NOT NULL,
+        Img VARCHAR(500) NOT NULL,
         isPrivate TINYINT DEFAULT 0,
         FOREIGN KEY(creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';

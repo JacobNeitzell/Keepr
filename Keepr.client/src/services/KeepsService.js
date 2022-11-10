@@ -1,5 +1,6 @@
 import { AppState } from "../AppState.js"
 import { Keep } from "../models/Keep.js"
+import { logger } from "../utils/Logger.js"
 import { api } from "./AxiosService.js"
 
 class KeepsService {
@@ -22,11 +23,23 @@ class KeepsService {
     AppState.activeKeep = new Keep(res.data);
   }
 
-  async GetKeepsByProfie(id) {
-    const res = await api.get('api/profile/' + id)
-    AppState.ProfileKeep = new Keep(res.data)
+  async GetKeepsByProfile(id) {
+    const res = await api.get('api/profiles/' + id + '/keeps')
+    logger.log(res.data)
+    AppState.keep.creator = AppState.ProfileKeep
+    AppState.ProfileKeep = res.data
     return res.data
   }
+
+
+  async CreateKeep(data) {
+    const res = await api.post("api/keeps", data)
+    AppState.keep.push(res.data)
+
+  }
+
+
+
 
 }
 export const keepsService = new KeepsService()
