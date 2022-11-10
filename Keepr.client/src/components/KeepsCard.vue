@@ -20,6 +20,7 @@ import { Modal } from "bootstrap";
 import { AppState } from "../AppState.js";
 import { Keep } from "../models/Keep.js";
 import { keepsService } from "../services/KeepsService.js";
+import { profileService } from "../services/ProfileService.js";
 import Pop from "../utils/Pop.js";
 
 
@@ -44,6 +45,13 @@ export default {
       }
     };
   },
+  async SetActiveProfile() {
+    try {
+      profileService.SetActiveProfile(props.creator)
+    } catch (error) {
+      Pop.error(error);
+    }
+  }
 
 }
 </script>

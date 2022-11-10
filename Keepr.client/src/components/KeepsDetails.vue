@@ -14,7 +14,8 @@
             <h5 class="card-title">{{ keep.name }}</h5>
             <p class="card-text">{{ keep.description }}</p>
             <p class="text-secondary mb-md-0">@{{ keep?.creator.name.split("@")[0] }}</p>
-            <router-link :to="{ name: 'Profile' }" class="btn text-success lighten-30 selectable text-uppercase">
+            <router-link :to="{ name: 'Profile', params: { profileId: keep.creator.id } }"
+              class="btn text-success lighten-30 selectable text-uppercase">
               <img :src="keep?.creator.picture" alt="creator profile picture" :title="keep.creator.name + 'picture'"
                 class="rounded-circle ms-2 mb-1" height="40">
             </router-link>
@@ -45,15 +46,28 @@ import { Keep } from "../models/Keep.js";
 import { keepsService } from "../services/KeepsService.js";
 import Pop from "../utils/Pop.js";
 import { Modal } from 'bootstrap';
+import { profileService } from "../services/ProfileService.js";
+
 export default {
 
   setup() {
-
     watchEffect(() => {
       AppState.activeKeep;
+      AppState.ActiveProfile;
     })
     return {
       keep: computed(() => AppState.activeKeep),
+      creator: computed(() => AppState.ActiveProfile),
+      profile: computed(() => AppState.profile),
+      async SetActiveProfile() {
+        try {
+          profileService.SetActiveProfile(props.creator)
+        } catch (error) {
+          Pop.error(error);
+        }
+      }
+
+
     }
   }
 }

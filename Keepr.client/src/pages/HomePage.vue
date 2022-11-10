@@ -4,7 +4,6 @@
       <KeepsCard :keep="k" :key="k.id" />
     </div>
   </div>
-
 </template>
 
 <script>

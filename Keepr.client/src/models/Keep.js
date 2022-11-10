@@ -8,6 +8,7 @@ export class Keep {
     this.img = data.img
     this.views = data.views
     this.kept = data.kept
+    this.creatorId = data.creatorId
     this.creator = new Account(data.creator)
   }
 
