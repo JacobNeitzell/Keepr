@@ -10,13 +10,13 @@
     </div>
     <div class="masonry-with-column">
       <h2>Vaults</h2>
-      <div class="" v-for="v in vault">
+      <div class="" v-for="v in vaults">
         <VaultCard :vault="v" />
       </div>
     </div>
     <div class="masonry-with-columns">
       <h2>Keeps</h2>
-      <div v-for="k in keep">
+      <div v-for="k in keeps">
         <KeepsCard :keep="k" />
       </div>
     </div>
@@ -27,7 +27,6 @@
 
 <script>
 import { computed } from "@vue/reactivity";
-import { watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import { AppState } from "../AppState.js";
 import KeepsCard from "../components/KeepsCard.vue";
@@ -74,12 +73,7 @@ export default {
 
 
 
-    watchEffect(() => {
-      AppState.ActiveProfile;
-      AppState.ProfileKeep;
-      AppState.profileVault;
-      AppState.activeVault;
-    });
+
     onAuthLoaded(() => {
       GetProfileById();
       GetKeepsByProfile();
@@ -87,8 +81,8 @@ export default {
     });
     return {
       creator: computed(() => AppState.ActiveProfile),
-      keep: computed(() => AppState.ProfileKeep),
-      vault: computed(() => AppState.profileVault),
+      keeps: computed(() => AppState.profileKeep),
+      vaults: computed(() => AppState.profileVault),
       activeVault: computed(() => AppState.activeVault)
     };
   },

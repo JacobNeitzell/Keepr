@@ -12,7 +12,7 @@ public class Keep : ICreated, IRepoItem<int>
   [Required(ErrorMessage = "Please provide a description for your Keep.")]
   public string Description { get; set; }
   public string Img { get; set; }
-  public int Views { get; set; }
+  public int Views { get; set; } = 0;
   public int Kept { get; set; }
 
   public Profile Creator { get; set; }
@@ -22,9 +22,13 @@ public class Keep : ICreated, IRepoItem<int>
 
 public class AllVaultKeep : Keep
 {
-  public int vaultKeepId { get; set; }
+  public int VaultKeepId { get; set; }
 
-  public int keepId { get; set; }
+  public int VaultId { get; set; }
+
+  public int KeepId { get; set; }
+
+  public string VaultKeepCreatorId { get; set; }
 
 }
 

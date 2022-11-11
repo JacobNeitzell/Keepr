@@ -1,6 +1,6 @@
 <template>
-  <router-link :to="{ name: 'VaultKeep', params: { vaultId: vault.id } }">
-    <div class="VaultCard" @click="SetActiveVault()">
+  <router-link :to="{ name: 'Vault', params: { vaultId: vault.id } }">
+    <div class="VaultCard">
       <div class="card text-dark" v-if="vault">
         <img class="card-img" :src="vault.img" alt="Card-Image" />
         <div class="card-img-overlay">

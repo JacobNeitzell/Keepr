@@ -16,30 +16,28 @@
           </div>
           <!-- DROPDOWN FOR VAULTS -->
           <div class="card-footer">
-            <region>
-              <div class="dropdown" v-if="account.id">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  MyVaults
-                </button>
-                <ul class="dropdown-menu">
-                  <li v-for="v in vaults" :key="v?.id">
-                    <a class="dropdown-item" href="#" @click="AddKeeptoVault()" :vault="v">{{
-                        v?.name
-                    }}</a>
-                  </li>
-                </ul>
-              </div>
-            </region>
+
+            <div class="dropdown" v-if="account.id">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                MyVaults
+              </button>
+              <ul class="dropdown-menu">
+                <li v-for="v in vaults" :key="v?.id">
+                  <a class="dropdown-item" href="#" @click="AddKeeptoVault()" :vault="v">{{
+                      v?.name
+                  }}</a>
+                </li>
+              </ul>
+            </div>
+
             <!-- CREATOR PROFILE -->
-            <region>
-              <p class="text-secondary mb-md-0">@{{ keep?.creator.name.split("@")[0] }}</p>
-              <router-link :to="{ name: 'Profile', params: { profileId: keep.creator.id } }"
-                class="btn text-success lighten-30 selectable text-uppercase">
-                <img :src="keep?.creator.picture" alt="creator profile picture" :title="keep.creator.name + 'picture'"
-                  class="rounded-circle ms-2 mb-1" height="40">
-              </router-link>
-            </region>
+            <p class="text-secondary mb-md-0">@{{ keep?.creator.name.split("@")[0] }}</p>
+            <router-link :to="{ name: 'Profile', params: { profileId: keep.creator.id } }"
+              class="btn text-success lighten-30 selectable text-uppercase">
+              <img :src="keep?.creator.picture" alt="creator profile picture" :title="keep.creator.name + 'picture'"
+                class="rounded-circle ms-2 mb-1" height="40">
+            </router-link>
           </div>
         </div>
       </div>

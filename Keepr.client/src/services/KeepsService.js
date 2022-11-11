@@ -12,9 +12,10 @@ class KeepsService {
 
 
   async setActiveKeep(keep) {
-    AppState.activeKeep = keep;
     const res = await api.get(`api/keeps/${keep.id}`)
-    AppState.keep.views++
+    AppState.activeKeep = new Keep(res.data);
+    AppState.activeKeep.vaultkeepId = keep.vaultkeepId
+    logger.log(res.data)
   }
 
 
@@ -25,10 +26,7 @@ class KeepsService {
 
   async GetKeepsByProfile(id) {
     const res = await api.get('api/profiles/' + id + '/keeps')
-    logger.log(res.data)
-    AppState.keep.creator = AppState.ProfileKeep
-    AppState.ProfileKeep = res.data
-    return res.data
+    AppState.profileKeep = res.data.map((p) => new Keep(p))
   }
 
 

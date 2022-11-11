@@ -6,8 +6,8 @@ CREATE TABLE
         creatorId VARCHAR(255) NOT NULL,
         vaultId INT NOT NULL,
         keepId INT NOT NULL,
-        FOREIGN KEY (vaultId) REFERENCES vault(id),
-        FOREIGN KEY (keepId) REFERENCES keeps(id)
+        FOREIGN KEY (vaultId) REFERENCES vault(id) ON DELETE CASCADE,
+        FOREIGN KEY (keepId) REFERENCES keeps(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
 SELECT

@@ -49,11 +49,12 @@ public class KeepsRepository : BaseRepo, IRepository<Keep, int>
     string sql = @"
    SELECT 
    k.*,
-   COUNT(k.id) AS Kept,
+   COUNT(vk.id) AS Kept,
    k.id AS KeepsId,
    a.*
    FROM keeps k
    JOIN accounts a on a.id = k.creatorId
+   LEFT JOIN vaultkeep vk on vk.keepId = k.id
    GROUP BY k.id
    ;";
     return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>
@@ -72,11 +73,14 @@ public class KeepsRepository : BaseRepo, IRepository<Keep, int>
   {
     string sql = @"
    SELECT 
-   kee.*,
+   k.*,
+   COUNT(vk.id) AS Kept,
    a.*
-   FROM keeps kee
-   JOIN accounts a ON a.id = kee.creatorId
-   WHERE kee.id = @keepsId
+   FROM keeps k
+   JOIN accounts a ON a.id = k.creatorId
+   LEFT JOIN vaultkeep vk ON vk.keepId = k.id
+   WHERE k.id = @keepsId
+   GROUP BY k.id
    ;";
     return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>
     {
@@ -96,7 +100,8 @@ public class KeepsRepository : BaseRepo, IRepository<Keep, int>
     UPDATE keeps SET 
     name = @name,
     description = @description,
-    img = @img
+    img = @img,
+    views = @Views
     WHERE id = @Id
     ;";
     int keepRow = _db.Execute(sql, keepData);
@@ -104,7 +109,7 @@ public class KeepsRepository : BaseRepo, IRepository<Keep, int>
     {
       throw new Exception("Unable to Update Keep");
     }
-    return keepData;
+    return GetKeepById(keepRow);
   }
 
 

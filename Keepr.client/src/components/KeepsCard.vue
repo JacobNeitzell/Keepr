@@ -1,5 +1,5 @@
 <template>
-  <div class="Keep-Card p-1" @click="setActiveKeep()">
+  <div class="Keep-Card p-1" @click="setActiveKeep(keep)">
     <div class="card text-dark " v-if="keep" data-bs-target="#keeps-modal" data-bs-toggle="modal">
       <img class="card-img" :src="keep.img" alt="Card-Image" />
       <div class="card-img-overlay">
@@ -34,9 +34,9 @@ export default {
   setup(props) {
     return {
       creator: computed(() => AppState.account.id == props.keep.id),
-      async setActiveKeep() {
+      async setActiveKeep(keep) {
         try {
-          keepsService.setActiveKeep(props.keep);
+          await keepsService.setActiveKeep(keep);
           Modal.getOrCreateInstance('#keeps-modal').show()
         }
         catch (error) {

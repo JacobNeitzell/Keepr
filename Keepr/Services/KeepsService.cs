@@ -23,25 +23,32 @@ public class KeepsService
 
   }
 
-  internal Keep GetKeepById(int keepId)
+  internal Keep GetKeepById(int keepId, string Id)
   {
     Keep foundKeep = _KeepsRepo.GetKeepById(keepId);
     if (foundKeep == null)
     {
       throw new Exception("Keep Does not Exist");
     }
+    if (foundKeep.CreatorId != Id)
+    {
+      UpdateViews(foundKeep);
+    }
     return foundKeep;
+  }
+
+  public void UpdateViews(Keep keep)
+  {
+    keep.Views++;
+    _KeepsRepo.UpdateKeep(keep);
   }
 
 
 
-  internal Keep UpdateKeep(Keep keepData, string userId)
+  internal Keep UpdateKeep(Keep keepData, int keepId, string userId)
   {
-    Keep original = GetKeepById(keepData.Id);
-    if (keepData.CreatorId != original.CreatorId)
-    {
-      throw new Exception("Not your keep");
-    }
+    Keep original = GetKeepById(keepId, userId);
+
     if (original.CreatorId != userId)
     {
       throw new Exception("Not today muchacho");
@@ -56,7 +63,7 @@ public class KeepsService
 
   internal void DeleteKeep(int keepId, string accountId)
   {
-    Keep foundKeep = GetKeepById(keepId);
+    Keep foundKeep = GetKeepById(keepId, accountId);
     if (foundKeep == null)
     {
       throw new Exception("Keep does not Exist");

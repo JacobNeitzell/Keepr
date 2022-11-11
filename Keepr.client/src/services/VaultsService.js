@@ -1,20 +1,26 @@
 import { AppState } from "../AppState.js"
 import { Vault } from "../models/Vault.js"
+import { router } from "../router.js";
 import { api } from "./AxiosService.js"
 
 class VaultsService {
   async getVault(vaultId) {
     const res = await api.get(`api/vaults/${vaultId}`)
-    AppState.profileVault = new Vault(res.data);
+    AppState.activeVault = new Vault(res.data);
 
   }
 
 
-  async GetVaultsByProfile(vaultId) {
-    const res = await api.get('api/profiles/' + vaultId + '/vaults')
-    AppState.vault.creator = AppState.profileVault
-    AppState.profileVault = res.data
-    return res.data
+  async GetVaultsByProfile(profileId) {
+    const res = await api.get('api/profiles/' + profileId + '/vaults')
+    AppState.profileVault = res.data.map((v) => new Vault(v))
+
+  }
+
+  async removeVault(id) {
+    await api.delete('api/vaults/' + id)
+    AppState.activeVault = null
+    router.push({ name: 'Home' })
   }
 
   async setActiveVault(vault) {

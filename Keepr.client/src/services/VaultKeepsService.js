@@ -1,4 +1,5 @@
 import { AppState } from "../AppState.js"
+import { Keep } from "../models/Keep.js"
 import { VaultKeep } from "../models/VaultKeep.js"
 import { api } from "./AxiosService.js"
 
@@ -12,9 +13,7 @@ class VaultKeepsService {
 
   async GetVaultKeeps(vaultId) {
     const res = await api.get('api/vaults/' + vaultId + '/keeps')
-    AppState.vault.creator = AppState.vaultkeep
-    AppState.vaultkeep = res.data
-    return res.data
+    AppState.vaultkeeps = res.data.map((v) => new Keep(v))
   }
 
 

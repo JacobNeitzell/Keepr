@@ -57,18 +57,22 @@ GROUP BY vk.id
   {
     string sql = @"
 SELECT
-a.*,
+vk.*,
+COUNT(vk.id) AS Kept,
+vk.id AS vaultKeepId,
+ vk.CreatorId AS VaultKeepCreatorId,
 k.*,
-vk.id AS vaultKeepId
+a.*
 FROM vaultkeep vk
 JOIN keeps k ON k.id = vk.keepId
 JOIN accounts a ON a.id = k.creatorId
 WHERE vk.vaultId = @vaultId
+GROUP BY vk.id
 ;";
-    return _db.Query<Profile, AllVaultKeep, AllVaultKeep>(sql, (p, mvk) =>
+    return _db.Query<AllVaultKeep, Profile, AllVaultKeep>(sql, (keep, p) =>
     {
-      mvk.Creator = p;
-      return mvk;
+      keep.Creator = p;
+      return keep;
     }, new { vaultId }).ToList();
   }
 

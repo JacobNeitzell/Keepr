@@ -17,14 +17,23 @@ public class VaultsKeepService
   }
 
 
-  internal VaultKeep CreateVaultKeep(VaultKeep newVKeep, string accountId)
+  internal VaultKeep CreateVaultKeep(VaultKeep vaultData, string accountId)
   {
-    Keep keep = _kr.GetKeepById(newVKeep.KeepId);
-    if (keep.CreatorId != newVKeep.CreatorId)
+    Vault vault = _vs.GetVaultById(vaultData.VaultId, accountId);
+    if (vaultData.CreatorId != vault.CreatorId)
     {
       throw new Exception("Unauthorized");
     }
-    return _vkr.Create(newVKeep);
+
+    VaultKeep vaultkeep = _vkr.Create(vaultData);
+    if (vaultkeep == null)
+    {
+      throw new Exception("it be null");
+    }
+    return vaultkeep;
+
+
+
   }
 
 
