@@ -53,7 +53,7 @@ public class ProfilesController : ControllerBase
 
   [HttpGet("{profileId}/vaults")]
 
-  public async Task<ActionResult<List<MyVault>>> GetVaultsByProfile(string profileId)
+  public async Task<ActionResult<List<Vault>>> GetVaultsByProfile(string profileId)
   {
     try
     {

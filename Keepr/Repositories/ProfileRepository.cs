@@ -33,7 +33,7 @@ public class ProfileRepository : BaseRepo
       return mk;
     }, new { creatorId }).ToList();
   }
-  internal List<MyVault> GetVaultsByProfile(string creatorId)
+  internal List<Vault> GetVaultsByProfile(string creatorId)
   {
     string sql = @"
     SELECT
@@ -44,7 +44,7 @@ public class ProfileRepository : BaseRepo
   WHERE v.creatorId = @creatorId
   AND v.isPrivate = false
   ;";
-    return _db.Query<MyVault, Profile, MyVault>(sql, (mv, p) =>
+    return _db.Query<Vault, Profile, Vault>(sql, (mv, p) =>
     {
       mv.Creator = p;
       return mv;
@@ -53,7 +53,7 @@ public class ProfileRepository : BaseRepo
 
 
 
-  internal MyVault GetMyVaultById(MyVault newVault)
+  internal Vault GetMyVaultById(Vault newVault)
   {
     string sql = @"
 SELECT 
@@ -61,7 +61,7 @@ SELECT
 FROM VaultKeeps
 WHERE vaultId = @vaultId AND creatorId = @creatorId
 ;";
-    return _db.Query<MyVault>(sql, newVault).FirstOrDefault();
+    return _db.Query<Vault>(sql, newVault).FirstOrDefault();
   }
 
 }

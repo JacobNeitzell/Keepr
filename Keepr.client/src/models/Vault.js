@@ -1,4 +1,5 @@
 import { Account } from "./Account.js"
+import { Profile } from "./Profile.js"
 
 export class Vault {
   constructor(data) {
@@ -7,7 +8,7 @@ export class Vault {
     this.name = data.name
     this.description = data.description
     this.img = data.img
-    this.isPrivate = data.isPrivate
-    this.creator = new Account(data.creator)
+    this.isPrivate = data.isPrivate || false
+    this.creator = new Profile(data.creator)
   }
 }

@@ -27,13 +27,13 @@ public class ProfileService
     return _pr.GetKeepsByProfile(creatorId);
   }
 
-  public List<MyVault> GetVaultsByProfile(string creatorId)
+  public List<Vault> GetVaultsByProfile(string creatorId)
   {
     return _pr.GetVaultsByProfile(creatorId);
   }
 
 
-  public MyVault GetMyVaultById(MyVault newVault)
+  public Vault GetMyVaultById(Vault newVault)
   {
     return _pr.GetMyVaultById(newVault);
   }

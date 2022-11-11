@@ -2,22 +2,28 @@
   <div class="about text-center">
     <div class="container-fluid">
       <div class="row">
-        <h1>Welcome {{ account.name }}</h1>
-        <img class="rounded-circle ms-2 mb-1" :src="account.picture" alt="" />
-        <span>{{ myVault?.length }}, {{ myKeep?.length }}</span>
-      </div>
-      <div class="row">
-        <h5>Vaults</h5>
-        <div class="col-md-3 vault" v-for="v in myVault" :key="v.id">
-          <VaultCard :vault="v" />
+        <img :src="account.imgUrl" alt="accountimg">
+        <div class="col-md-3 col-lg-12">
+          <button class="btn-dark btn" data-bs-target='#editform-modal' data-bs-toggle='modal'>EditForm</button>
+          <h1> {{ account.name }}</h1>
+          <img class="rounded-circle ms-2 mb-1" :src="account.picture" alt="" />
+          <div class="col-md-3 col-lg-12">
+            <span>{{ myVaults?.length }}</span>
+          </div>
         </div>
       </div>
       <div class="row">
+        <h5>Vaults</h5>
+        <div class="col-md-3 vault" v-for="v in myVaults" :key="v.id">
+          <VaultCard :vault="v" />
+        </div>
+      </div>
+      <!-- <div class="row">
         <h5>Keeps</h5>
         <div class="col-md-6 keep" v-for="m in myKeep" :key="m.id">
           <KeepsCard :keep="m" />
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -43,7 +49,7 @@ export default {
 
     return {
       account: computed(() => AppState.account),
-      myVault: computed(() => AppState.myVault),
+      myVaults: computed(() => AppState.myVaults),
       myKeep: computed(() => AppState.myKeep == AppState.ProfileKeep)
     };
   },

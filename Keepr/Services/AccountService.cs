@@ -9,9 +9,9 @@ public class AccountService
     _repo = repo;
   }
 
-  internal Account GetProfileByEmail(string email)
+  internal Account GetProfileByEmail(string Id)
   {
-    return _repo.GetByEmail(email);
+    return _repo.GetByEmail(Id);
   }
 
   internal Account GetOrCreateProfile(Account userInfo)
@@ -24,18 +24,22 @@ public class AccountService
     return profile;
   }
 
-  internal Account Edit(Account editData, string userEmail)
+  internal Account Edit(Account editData, string userId)
   {
-    Account original = GetProfileByEmail(userEmail);
+    Account original = GetProfileByEmail(userId);
     original.Name = editData.Name.Length > 0 ? editData.Name : original.Name;
     original.Picture = editData.Picture.Length > 0 ? editData.Picture : original.Picture;
+    original.ImgUrl = editData.ImgUrl.Length > 0 ? editData.ImgUrl : original.ImgUrl;
     return _repo.Edit(original);
   }
 
-  public List<MyVault> GetMyVaults(string creatorId)
+  public List<Vault> GetMyVaults(string creatorId)
   {
     return _repo.GetMyVaults(creatorId);
   }
 
-
+  internal Account EditAccount()
+  {
+    throw new NotImplementedException();
+  }
 }

@@ -109,7 +109,7 @@ public class KeepsRepository : BaseRepo, IRepository<Keep, int>
     {
       throw new Exception("Unable to Update Keep");
     }
-    return GetKeepById(keepRow);
+    return GetKeepById(keepData.Id);
   }
 
 

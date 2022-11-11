@@ -36,6 +36,7 @@
 import { Modal } from "bootstrap";
 import { ref } from "vue";
 import { vaultService } from "../services/VaultsService.js";
+import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 
 export default {
@@ -45,6 +46,7 @@ export default {
       editable,
       async CreateVault() {
         try {
+          logger.log(editable.value)
           await vaultService.CreateVault(editable.value)
           editable.value = {};
           Modal.getOrCreateInstance('#vaultform-modal').hide()

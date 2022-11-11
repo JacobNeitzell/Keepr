@@ -20,7 +20,9 @@ class VaultsService {
   async removeVault(id) {
     await api.delete('api/vaults/' + id)
     AppState.activeVault = null
+    AppState.myVaults = AppState.myVaults.filter((v) => v.id != id)
     router.push({ name: 'Home' })
+
   }
 
   async setActiveVault(vault) {

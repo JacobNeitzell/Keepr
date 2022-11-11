@@ -8,7 +8,9 @@
         <div class="col-md-8">
           <div class="card-header">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <span> {{ keep.views }} {{ keep.kept }}</span>
+            <span> <i class="mdi mdi-mdieye">views{{ keep.views }}</i> : <i class="mdi mdi-mdiTemperatureKelvin">kept{{
+                keep.kept
+            }}</i></span>
           </div>
           <div class="card-body">
             <h5 class="card-title">{{ keep.name }}</h5>
@@ -23,13 +25,14 @@
                 MyVaults
               </button>
               <ul class="dropdown-menu">
-                <li v-for="v in vaults" :key="v?.id">
-                  <a class="dropdown-item" href="#" @click="AddKeeptoVault()" :vault="v">{{
+                <li v-for="v in myVaults" :key="v?.id">
+                  <a class="dropdown-item" href="#" @click="AddKeeptoVault(v)" :vault="v">{{
                       v?.name
                   }}</a>
                 </li>
               </ul>
             </div>
+            <div><button class="btn-dark btn" @click="deleteVaultKeep()">DELETE VAULTKEEP</button></div>
 
             <!-- CREATOR PROFILE -->
             <p class="text-secondary mb-md-0">@{{ keep?.creator.name.split("@")[0] }}</p>
@@ -57,6 +60,7 @@
 
 
 <script>
+
 import { computed } from "@vue/reactivity";
 import { watchEffect } from "vue";
 import { AppState } from "../AppState.js";
@@ -80,9 +84,10 @@ export default {
     return {
       keep: computed(() => AppState.activeKeep),
       creator: computed(() => AppState.ActiveProfile),
-      vaults: computed(() => AppState.profileVault),
+      // vaults: computed(() => AppState.profileVault),
       profile: computed(() => AppState.profile),
       account: computed(() => AppState.account),
+      myVaults: computed(() => AppState.myVaults),
 
 
 
@@ -96,14 +101,26 @@ export default {
         }
       },
 
-      async AddKeeptoVault() {
+
+      async deleteVaultKeep() {
+        try {
+          if (await Pop.confirm("you sure?"))
+            await vaultKeepsService.deleteVaultKeep(AppState.activeKeep.vaultKeepId)
+          Pop.success("its been removed")
+        } catch (error) {
+          Pop.error(error)
+        }
+      },
+
+
+      async AddKeeptoVault(v) {
         try {
           if (!AppState.account.id) {
             return AuthService.loginWithRedirect
           }
           const addkeep = {
-            vaultId: AppState.vault.id,
-            keepId: AppState.activeVault,
+            vaultId: v.id,
+            keepId: AppState.activeKeep.id,
           }
           await vaultKeepsService.AddKeeptoVault(addkeep)
           Pop.success("Keep Has Been Added")

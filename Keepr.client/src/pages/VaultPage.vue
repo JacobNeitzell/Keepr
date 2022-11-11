@@ -1,14 +1,16 @@
 <template>
   <div class="VaultPage">
-    <div>0</div>
-    <div class="card text-dark  " v-if="vault">
+    <div>
+      <h1>Keeps={{ vaultkeeps.length }}</h1>
+    </div>
+    <div class="card text-dark  vault" v-if="vault">
       <img class="card-img forcedImg" :src="vault.img" alt="Card-Image" />
       <div class="card-img-overlay">
         <h5 class="card-title">{{ vault.name }}</h5>
         <p class="card-text">{{ vault.creator.imgUrl }}</p>
         <button class="btn-dark btn" @click="deleteVault()">DELETE</button>
       </div>
-      <div v-for="k in vaultkeeps">
+      <div class="masonry-with-columns" v-for="k in vaultkeeps">
         <KeepsCard :keep="k" :key="k.id" />
       </div>
     </div>
@@ -62,6 +64,7 @@ export default {
     return {
       vaultkeeps: computed(() => AppState.vaultkeeps),
       vault: computed(() => AppState.activeVault),
+      keep: computed(() => AppState.keep),
 
       async deleteVault() {
         try {
@@ -82,5 +85,14 @@ export default {
 
 
 <style lang="scss" scoped>
+.vault {
+  width: 759px;
+  height: 338px;
+}
 
+.masonry-with-columns {
+  columns: 2;
+
+
+}
 </style>

@@ -14,12 +14,16 @@
   <ModalComponent id="vaultform-modal">
     <VaultForm />
   </ModalComponent>
+  <ModalComponent id="editform-modal">
+    <EditForm />
+  </ModalComponent>
 
 </template>
 
 <script>
 import { computed } from 'vue'
 import { AppState } from './AppState'
+import EditForm from "./components/EditForm.vue"
 import KeepForm from "./components/KeepForm.vue"
 import KeepsDetails from "./components/KeepsDetails.vue"
 import ModalComponent from "./components/ModalComponent.vue"
@@ -32,7 +36,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar, ModalComponent, KeepsDetails, KeepForm, VaultForm }
+  components: { Navbar, ModalComponent, KeepsDetails, KeepForm, VaultForm, EditForm }
 }
 </script>
 <style lang="scss">

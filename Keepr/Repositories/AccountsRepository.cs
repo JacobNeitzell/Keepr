@@ -9,10 +9,10 @@ public class AccountsRepository
     _db = db;
   }
 
-  internal Account GetByEmail(string userEmail)
+  internal Account GetByEmail(string userId)
   {
-    string sql = "SELECT * FROM accounts WHERE email = @userEmail";
-    return _db.QueryFirstOrDefault<Account>(sql, new { userEmail });
+    string sql = "SELECT * FROM accounts WHERE id = @userId";
+    return _db.QueryFirstOrDefault<Account>(sql, new { userId });
   }
 
   internal Account GetById(string id)
@@ -38,14 +38,15 @@ public class AccountsRepository
             UPDATE accounts
             SET 
               name = @Name,
-              picture = @Picture
+              picture = @Picture,
+              imgUrl = @ImgUrl
             WHERE id = @Id;";
     _db.Execute(sql, update);
     return update;
   }
 
 
-  internal List<MyVault> GetMyVaults(string creatorId)
+  internal List<Vault> GetMyVaults(string creatorId)
   {
     string sql = @"
     SELECT
@@ -55,7 +56,7 @@ public class AccountsRepository
   JOIN accounts a ON a.id = v.creatorId
   WHERE v.creatorId = @creatorId
   ;";
-    return _db.Query<MyVault, Account, MyVault>(sql, (mv, a) =>
+    return _db.Query<Vault, Account, Vault>(sql, (mv, a) =>
     {
       mv.Creator = a;
       return mv;

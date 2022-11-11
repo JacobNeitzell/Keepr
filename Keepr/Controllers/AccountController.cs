@@ -31,7 +31,7 @@ public class AccountController : ControllerBase
 
   [HttpGet("vaults")]
   [Authorize]
-  public async Task<ActionResult<List<MyVault>>> GetVaultsByProfile()
+  public async Task<ActionResult<List<Vault>>> GetVaultsByProfile()
   {
     try
     {
@@ -45,6 +45,22 @@ public class AccountController : ControllerBase
     }
   }
 
+
+  [HttpPut]
+  [Authorize]
+  public async Task<ActionResult<Account>> EditAccount([FromBody] Account accountData)
+  {
+    try
+    {
+      var userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      Account account = _accountService.Edit(accountData, userInfo?.Id);
+      return Ok(account);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 
 
 

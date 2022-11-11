@@ -21,8 +21,3 @@ public class Vault : ICreated, IRepoItem<int>
 }
 
 
-public class MyVault : Vault
-{
-  public Keep Keep { get; set; }
-
-}

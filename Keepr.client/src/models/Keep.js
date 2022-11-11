@@ -10,7 +10,8 @@ export class Keep {
     this.kept = data.kept
     this.creatorId = data.creatorId
     this.creator = new Account(data.creator)
-    this.vaultkeepId = data.vaultkeepId
+    this.vaultKeepId = data.vaultKeepId
+
   }
 
 
