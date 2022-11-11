@@ -1,6 +1,7 @@
 <template>
   <div class="Keep-Card p-1" @click="setActiveKeep(keep)">
     <div class="card text-dark " v-if="keep" data-bs-target="#keeps-modal" data-bs-toggle="modal">
+
       <img class="card-img" :src="keep.img" alt="Card-Image" />
       <div class="card-img-overlay">
         <h5 class="card-title">{{ keep.name }}</h5>

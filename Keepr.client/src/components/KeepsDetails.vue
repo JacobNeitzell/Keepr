@@ -32,7 +32,9 @@
                 </li>
               </ul>
             </div>
-            <div><button class="btn-dark btn" @click="deleteVaultKeep()">DELETE VAULTKEEP</button></div>
+            <div><button class="btn-dark btn" @click="deleteVaultKeep()">DELETE VAULTKEEP</button>
+              <i class="mdi mdi-delete" @click="deleteKeep()"></i>
+            </div>
 
             <!-- CREATOR PROFILE -->
             <p class="text-secondary mb-md-0">@{{ keep?.creator.name.split("@")[0] }}</p>
@@ -70,6 +72,8 @@ import Pop from "../utils/Pop.js";
 import { Modal } from 'bootstrap';
 import { profileService } from "../services/ProfileService.js";
 import { AuthService } from "../services/AuthService.js";
+import { keepsService } from "../services/KeepsService.js";
+
 
 
 export default {
@@ -100,6 +104,16 @@ export default {
           Pop.error(error);
         }
       },
+      async deleteKeep() {
+        try {
+          if (await Pop.confirm("do you want to delete this keep?"))
+            await keepsService.deleteKeep(AppState.activeKeep.id)
+          Pop.success("Its Been Deleted")
+        } catch (error) {
+          Pop.error(error)
+        }
+      },
+
 
 
       async deleteVaultKeep() {

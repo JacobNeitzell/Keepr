@@ -3,9 +3,12 @@
     <div>
       <div>
         <div v-if="creator">
-          <img :src="creator?.imgurl" alt="profile-cover-img">
+          <img :src="creator?.picture" alt="profile-cover-img">
         </div>
         <h3 class="text-secondary mb-md-0">{{ creator?.name }}</h3>
+        <h1><a>Vaults {{ vaults.length }}</a> :
+          <a>Keeps {{ keeps.length }}</a>
+        </h1>
       </div>
     </div>
     <div class="masonry-with-column">
