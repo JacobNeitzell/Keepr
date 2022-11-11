@@ -2,28 +2,34 @@
   <div class="about text-center">
     <div class="container-fluid">
       <div class="row">
-        <img :src="account.imgUrl" alt="accountimg">
+        <div class="col-12">
+          <img :src="account.imgUrl" alt="accountimg" class="forcedImg2">
+        </div>
         <div class="col-md-3 col-lg-12">
-          <button class="btn-dark btn" data-bs-target='#editform-modal' data-bs-toggle='modal'>EditForm</button>
-          <h1> {{ account.name }}</h1>
           <img class="rounded-circle ms-2 mb-1" :src="account.picture" alt="" />
+
+          <div class="col-md-3 col-lg-12">
+            <button class="btn-dark btn" data-bs-target='#editform-modal' data-bs-toggle='modal'>EditForm</button>
+            <h1> {{ account.name }}</h1>
+          </div>
           <div class="col-md-3 col-lg-12">
             <span>{{ myVaults?.length }}</span>
           </div>
+
         </div>
-      </div>
-      <div class="row">
-        <h5>Vaults</h5>
-        <div class="col-md-3 vault" v-for="v in myVaults" :key="v.id">
-          <VaultCard :vault="v" />
+        <div class="row">
+          <h5>Vaults</h5>
+          <div class="col-md-3 vault" v-for="v in myVaults" :key="v.id">
+            <VaultCard :vault="v" />
+          </div>
         </div>
-      </div>
-      <!-- <div class="row">
+        <!-- <div class="row">
         <h5>Keeps</h5>
         <div class="col-md-6 keep" v-for="m in myKeep" :key="m.id">
           <KeepsCard :keep="m" />
         </div>
       </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -63,7 +69,19 @@ export default {
   height: 131px;
 }
 
-img {
-  max-width: 100px;
+.profpic {
+  position: absolute;
+}
+
+.forcedImg {
+  height: 300px;
+  width: auto;
+  object-fit: cover;
+}
+
+.forcedImg2 {
+  height: 500px;
+  width: auto;
+  object-fit: cover;
 }
 </style>
