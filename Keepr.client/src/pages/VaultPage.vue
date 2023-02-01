@@ -48,6 +48,7 @@ export default {
       }
       catch (error) {
         router.push({ name: 'Home' })
+        Pop.toast("You do not have access to this vault.", "warning")
       }
     }
     async function GetVaultKeeps() {

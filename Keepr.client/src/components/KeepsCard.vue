@@ -4,7 +4,7 @@
 
       <img class="card-img" :src="keep.img" alt="Card-Image" />
       <div class="card-img-overlay">
-        <h5 class="card-title">{{ keep.name }}</h5>
+        <h5 class="card-title text-shadow">{{ keep.name }}</h5>
         <p class="card-text"></p>
       </div>
     </div>
@@ -64,5 +64,13 @@ export default {
   transition: all 0.5s ease;
   box-shadow: rgba(223, 12, 132, 0.4) 5px 5px, rgba(88, 3, 101, 0.3) 10px 10px,
     rgba(175, 8, 138, 0.2) 15px 15px, rgba(60, 45, 6, 0.1) 20px 20px;
+}
+
+
+.text-shadow {
+  color: rgb(33, 2, 2);
+  text-shadow: 1px 1px rgb(113, 91, 91), 0px 0px 5px rgb(140, 28, 158);
+  font-weight: bold;
+  letter-spacing: 0.08rem
 }
 </style>

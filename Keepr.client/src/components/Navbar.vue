@@ -6,7 +6,8 @@
     <div>
       <!-- <button class="btn btn-dark text-success" data-bs-target="#keepForm-modal" data-bs-toggle="modal">CREATE</button> -->
       <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button v-if="account.id" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
           Create
         </button>
         <ul class="dropdown-menu">
@@ -43,12 +44,16 @@
 </template>
 
 <script>
+import { computed } from "@vue/reactivity";
+import { AppState } from "../AppState.js";
 import KeepForm from "./KeepForm.vue";
 import Login from './Login.vue'
 import VaultForm from "./VaultForm.vue";
 export default {
   setup() {
     return {
+      account: computed(() => AppState.account)
+
     }
   },
   components: { Login, KeepForm, VaultForm }
