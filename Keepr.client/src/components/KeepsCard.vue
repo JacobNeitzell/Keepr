@@ -1,5 +1,5 @@
 <template>
-  <div class="Keep-Card p-1" @click="setActiveKeep(keep)">
+  <!-- <div class="Keep-Card p-1" @click="setActiveKeep(keep)">
     <div class="card text-dark " v-if="keep" data-bs-target="#keeps-modal" data-bs-toggle="modal">
 
       <img class="card-img" :src="keep.img" alt="Card-Image" />
@@ -9,7 +9,17 @@
       </div>
     </div>
 
+  </div> -->
+
+  <div class="card border-0  rounded position-relative selectable" @click="setActiveKeep(keep)" :title="keep?.name">
+    <img :src="keep?.img" :alt="keep.name" class="card-img img-fluid rounded img" alt="" />
+    <div class="card-img-overlay align-items-end d-flex justify-content-between text-shadow ">
+      <h5 class="card-title no-select">{{ keep?.name }}</h5>
+      <img :src="keep.creator?.picture" class="person rounded-circle" :title="keep.creator?.name"
+        :alt="keep.creator.name" height="40" width="40" />
+    </div>
   </div>
+
 </template>
 
 

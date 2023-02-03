@@ -9,7 +9,7 @@
           <div class="card-header">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             <span> <i class="mdi mdi-mdieye">views{{ keep.views }}</i> : <i class="mdi mdi-mdiTemperatureKelvin">kept{{
-                keep.kept
+              keep.kept
             }}</i></span>
           </div>
           <div class="card-body">
@@ -27,7 +27,7 @@
               <ul class="dropdown-menu">
                 <li v-for="v in myVaults" :key="v?.id">
                   <a class="dropdown-item" href="#" @click="AddKeeptoVault(v)" :vault="v">{{
-                      v?.name
+                    v?.name
                   }}</a>
                 </li>
               </ul>
@@ -54,7 +54,19 @@
     </div>
   </div>
 
+  <div class="container-fluid postiion relative" v-if="keep">
+    <div class="row">
+      <div class="col-md-6 p-0">
+        <div class="img rounded-start"></div>
+        <div class="col-md-6 d-flex justify-content-between flex-column">
+          <div class="d-flex gap-2 justify-content-center mt-3">
 
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
 
 
