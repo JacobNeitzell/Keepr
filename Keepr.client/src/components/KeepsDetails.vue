@@ -82,6 +82,7 @@
         <div class="d-flex mb-2" :class="account ? 'justify-content-between' : ' justify-content-end'">
           <div v-if="account">
             <div class="d-flex gap-2" v-if="!routeVault || !vaultOwner"></div>
+            <!-- LEFT OFF HERE MAKE SURE TO DOUBLE CHECK PROPS WITH KEEPS AND MAKE SURE ACTIVE KEEP IS NAMED CORRECTILY, LAST WORKING ON THE ROUTES SO THE PAGE WILL REFRESH  -->
           </div>
         </div>
       </div>
