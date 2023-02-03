@@ -1,5 +1,5 @@
 <template>
-  <div v-if="keep">
+  <!-- <div v-if="keep">
     <div class="card mb-3" style="width: 45rem;">
       <div class="row g-0">
         <div class="col-md-4">
@@ -15,9 +15,9 @@
           <div class="card-body">
             <h5 class="card-title">{{ keep.name }}</h5>
             <p class="card-text">{{ keep.description }}</p>
-          </div>
-          <!-- DROPDOWN FOR VAULTS -->
-          <div class="card-footer">
+          </div> -->
+  <!-- DROPDOWN FOR VAULTS -->
+  <!-- <div class="card-footer">
 
             <div class="dropdown" v-if="account.id">
               <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -31,9 +31,9 @@
                   }}</a>
                 </li>
               </ul>
-            </div>
-            <!-- CREATOR PROFILE -->
-            <p class="text-secondary mb-md-0">@{{ keep.creator.name.split("@")[0] }}</p>
+            </div> -->
+  <!-- CREATOR PROFILE -->
+  <!-- <p class="text-secondary mb-md-0">@{{ keep.creator.name.split("@")[0] }}</p>
             <router-link :to="{ name: 'Profile', params: { profileId: keep.creator.id } }"
               class="btn text-success lighten-30 selectable text-uppercase">
               <img :src="keep.creator.picture" alt="creator profile picture" :title="keep.creator.name + 'picture'"
@@ -52,7 +52,7 @@
     </div>
     <div>
     </div>
-  </div>
+  </div> -->
 
   <div class="container-fluid postiion relative" v-if="keep">
     <div class="row">
@@ -60,10 +60,26 @@
         <div class="img rounded-start"></div>
         <div class="col-md-6 d-flex justify-content-between flex-column">
           <div class="d-flex gap-2 justify-content-center mt-3">
-
+            <div class="d-flex gap-2">
+              <i class="mdi mdi-eye mx-1 fs-3 no-select" title="Views count"></i>
+              <span class="align-self-center">{{ keep?.views }}</span>
+            </div>
+            <div class="d-flex gap-2 align-items-start">
+              <i class="mdi mdi-alpha-k-box-outline fs-3 no-select"
+                title="Amount of times this keep has been vaulted"></i>
+              <span class="align-self-center">{{ keep?.kept }}</span>
+            </div>
+            <div class="align-self-center icon me-1">
+              <i class="mdi mdi-delete selectable fs-4 rounded" v-if="keep.creatorId == account.id" title="delete keep"
+                @click="deleteKeep(keep)"></i>
+            </div>
           </div>
         </div>
-
+        <div>
+          <h1 class="text-center">{{ keep?.name }}</h1>
+          <p class="px-md-5 px-sm-2 d-flex -justify-content-center">{{ keep?.description }}</p>
+        </div>
+        <div class="d-flex mb-2"></div>
       </div>
     </div>
   </div>

@@ -11,7 +11,7 @@
 
   </div> -->
 
-  <div class="card border-0  rounded position-relative selectable" @click="setActiveKeep(keep)" :title="keep?.name">
+  <div class="card border-0  rounded position-relative selectable p-1" @click="setActiveKeep(keep)" :title="keep?.name">
     <img :src="keep?.img" :alt="keep.name" class="card-img img-fluid rounded img" alt="" />
     <div class="card-img-overlay align-items-end d-flex justify-content-between text-shadow ">
       <h5 class="card-title no-select">{{ keep?.name }}</h5>
