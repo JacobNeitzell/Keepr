@@ -79,7 +79,11 @@
           <h1 class="text-center">{{ keep?.name }}</h1>
           <p class="px-md-5 px-sm-2 d-flex -justify-content-center">{{ keep?.description }}</p>
         </div>
-        <div class="d-flex mb-2"></div>
+        <div class="d-flex mb-2" :class="account ? 'justify-content-between' : ' justify-content-end'">
+          <div v-if="account">
+            <div class="d-flex gap-2" v-if="!routeVault || !vaultOwner"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -105,12 +109,16 @@ import { profileService } from "../services/ProfileService.js";
 import { AuthService } from "../services/AuthService.js";
 import { keepsService } from "../services/KeepsService.js";
 import { useRoute } from "vue-router";
+import { propsToAttrMap } from "@vue/shared";
 
 
 
 export default {
+  props: {
+    keeps: { type: Keep, required: true }
+  },
 
-  setup() {
+  setup(props) {
     const route = useRoute();
 
     watchEffect(() => {
@@ -119,6 +127,8 @@ export default {
       AppState.vaults;
     })
     return {
+      routeVault: computed(() => route.name == "Vault"),
+      vaultOwner: computed(() => AppState.account?.id == props.keep.creatorId),
       keep: computed(() => AppState.activeKeep),
       creator: computed(() => AppState.ActiveProfile),
       // vaults: computed(() => AppState.profileVault),
