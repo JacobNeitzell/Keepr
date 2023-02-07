@@ -82,6 +82,12 @@
         <div class="d-flex mb-2" :class="account ? 'justify-content-between' : ' justify-content-end'">
           <div v-if="account">
             <div class="d-flex gap-2" v-if="!routeVault || !vaultOwner"></div>
+            <div class="dropup open d-flex align-items-end">
+              <a class="btn btn-secondary dropdown-toggle btnA text-truncate" type="button" data-bs-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" title="vaults" @click="AddKeeptoVault(v)" :vaults="v"
+                href="#">
+              </a>
+            </div>
             <!-- LEFT OFF HERE MAKE SURE TO DOUBLE CHECK PROPS WITH KEEPS AND MAKE SURE ACTIVE KEEP IS NAMED CORRECTILY, LAST WORKING ON THE ROUTES SO THE PAGE WILL REFRESH  -->
           </div>
         </div>
@@ -132,7 +138,7 @@ export default {
       vaultOwner: computed(() => AppState.account?.id == props.keep.creatorId),
       keep: computed(() => AppState.activeKeep),
       creator: computed(() => AppState.ActiveProfile),
-      // vaults: computed(() => AppState.profileVault),
+      vaults: computed(() => AppState.profileVault),
       profile: computed(() => AppState.profile),
       account: computed(() => AppState.account),
       myVaults: computed(() => AppState.myVaults),
