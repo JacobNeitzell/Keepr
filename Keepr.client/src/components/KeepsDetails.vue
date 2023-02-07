@@ -57,7 +57,8 @@
   <div class="container-fluid postiion relative" v-if="keep">
     <div class="row">
       <div class="col-md-6 p-0">
-        <div class="img rounded-start"></div>
+        <div class="img rounded-start">
+        </div>
         <div class="col-md-6 d-flex justify-content-between flex-column">
           <div class="d-flex gap-2 justify-content-center mt-3">
             <div class="d-flex gap-2">
@@ -77,18 +78,31 @@
         </div>
         <div>
           <h1 class="text-center">{{ keep?.name }}</h1>
+          <img :src="keep.img" alt="Image for the keep" class="forcedImg">
           <p class="px-md-5 px-sm-2 d-flex -justify-content-center">{{ keep?.description }}</p>
         </div>
         <div class="d-flex mb-2" :class="account ? 'justify-content-between' : ' justify-content-end'">
           <div v-if="account">
             <div class="d-flex gap-2" v-if="!routeVault || !vaultOwner"></div>
-            <div class="dropup open d-flex align-items-end">
-              <a class="btn btn-secondary dropdown-toggle btnA text-truncate" type="button" data-bs-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" title="vaults" @click="AddKeeptoVault(v)" :vaults="v"
-                href="#">
-              </a>
+            <div class="dropdown" v-if="account.id">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                MyVaults
+              </button>
+              <ul class="dropdown-menu">
+                <li v-for="v in myVaults" :key="v?.id">
+                  <a class="dropdown-item" href="#" @click="AddKeeptoVault(v)" :vault="v">{{
+                    v?.name
+                  }}</a>
+                </li>
+              </ul>
             </div>
-            <!-- LEFT OFF HERE MAKE SURE TO DOUBLE CHECK PROPS WITH KEEPS AND MAKE SURE ACTIVE KEEP IS NAMED CORRECTILY, LAST WORKING ON THE ROUTES SO THE PAGE WILL REFRESH  -->
+            <router-link :to="{ name: 'Profile', params: { profileId: keep.creator.id } }">
+              <div class="d-flex align-items-center gap-3 ms-2">
+                <img :src="keep?.creator.picture" :alt="keep?.creator.name" :title="keep?.creator.name" height="50"
+                  class="rounded-circle shadow-2 ">
+              </div>
+            </router-link>
           </div>
         </div>
       </div>
