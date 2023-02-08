@@ -56,10 +56,10 @@
 
   <div class="container-fluid postiion relative" v-if="keep">
     <div class="row">
-      <div class="col-md-6 p-0">
+      <div class="col-md-6 col-lg-12 p-0">
         <div class="img rounded-start">
         </div>
-        <div class="col-md-6 d-flex justify-content-between flex-column">
+        <div class="col-md-6 col-lg-12 d-flex justify-content-between flex-column">
           <div class="d-flex gap-2 justify-content-center mt-3">
             <div class="d-flex gap-2">
               <i class="mdi mdi-eye mx-1 fs-3 no-select" title="Views count"></i>
@@ -79,7 +79,7 @@
         <div>
           <h1 class="text-center">{{ keep?.name }}</h1>
           <img :src="keep.img" alt="Image for the keep" class="forcedImg">
-          <p class="px-md-5 px-sm-2 d-flex -justify-content-center">{{ keep?.description }}</p>
+          <p class="px-md-5 px-sm-2 d-flex">{{ keep?.description }}</p>
         </div>
         <div class="d-flex mb-2" :class="account ? 'justify-content-between' : ' justify-content-end'">
           <div v-if="account">
